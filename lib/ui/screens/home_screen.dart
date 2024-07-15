@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_online_shop/cubits/product/product_cubit.dart';
-import 'package:minimal_online_shop/cubits/product/product_stete.dart';
+import 'package:minimal_online_shop/logic/cubits/product/product_cubit.dart';
+import 'package:minimal_online_shop/logic/cubits/product/product_stete.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,9 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productCubit = context.watch<ProductCubit>();
-
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Market"),
         centerTitle: true,
@@ -130,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       AnimatedPositioned(
-                        bottom: haveAction ? 50 : -40,
-                        left: haveAction ? 68 : 68,
+                        bottom: haveAction ? 35 : -40,
+                        left: haveAction ? 35 : -40,
                         duration: const Duration(milliseconds: 200),
                         child: Container(
                           decoration: const BoxDecoration(
@@ -154,7 +153,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       AnimatedPositioned(
-                        top: haveAction ? 30 : -40,
+                        bottom: haveAction ? 35 : -40,
+                        right: haveAction ? 35 : -40,
+                        duration: const Duration(milliseconds: 200),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      AnimatedPositioned(
+                        top: haveAction ? 35 : -40,
                         left: haveAction ? 35 : -40,
                         duration: const Duration(milliseconds: 200),
                         child: Container(
@@ -184,6 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               if (value!.trim().isEmpty) {
                                                 return "Rasm uchun nom kiriting";
                                               }
+                                              return null;
                                             },
                                           ),
                                           TextFormField(
@@ -194,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               if (value!.trim().isEmpty) {
                                                 return "Rasm uchun URL manzilni kiriting";
                                               }
+                                              return null;
                                             },
                                           ),
                                         ],
@@ -236,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       AnimatedPositioned(
-                        top: haveAction ? 30 : -40,
+                        top: haveAction ? 35 : -40,
                         right: haveAction ? 35 : -40,
                         duration: const Duration(milliseconds: 200),
                         child: Container(
@@ -266,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amberAccent,
         onPressed: () {
           _titleTextController.clear();
           _imageUrlTextController.clear();
@@ -286,6 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (value!.trim().isEmpty) {
                             return "Rasm uchun nom kiriting";
                           }
+                          return null;
                         },
                       ),
                       TextFormField(
@@ -296,6 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (value!.trim().isEmpty) {
                             return "Rasm uchun URL manzilni kiriting";
                           }
+                          return null;
                         },
                       ),
                     ],

@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_online_shop/cubits/product/product_cubit.dart';
-import 'package:minimal_online_shop/ui/screens/home_screen.dart';
+import 'package:minimal_online_shop/data/repositories/cart_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'logic/cubits/all_cubits.dart';
+import 'core/app.dart';
+
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        return ProductCubit();
-      },
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
-      ),
-    );
-  }
+  runApp(MultiRepositoryProvider(
+    providers: [
+      RepositoryProvider(create: (context) {
+        return CartRepository();
+      })
+    ],
+    child: MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) {
+          return CartCubit(context.read<CartRepository>());
+        }),
+        BlocProvider(create: (context) {
+          return ProductCubit();
+        })
+      ],
+      child: const MainApp(),
+    ),
+  ));
 }

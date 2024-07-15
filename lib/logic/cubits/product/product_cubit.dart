@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:minimal_online_shop/cubits/product/product_stete.dart';
+import 'package:minimal_online_shop/logic/cubits/product/product_stete.dart';
 import 'package:minimal_online_shop/data/models/product.dart';
 
 class ProductCubit extends Cubit<ProductState> {
