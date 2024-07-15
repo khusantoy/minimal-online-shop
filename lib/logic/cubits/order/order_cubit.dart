@@ -24,6 +24,8 @@ class OrderCubit extends Cubit<OrderState> {
   }
 
   Future<void> addProductToOrder(List<Product> newProducts) async {
+    
+    print(newProducts);
     try {
       if (state is LoadedOrderState) {
         products = (state as LoadedOrderState).products;
@@ -31,7 +33,9 @@ class OrderCubit extends Cubit<OrderState> {
 
       emit(LoadingOrderState());
 
-      products.addAll(newProducts);
+      for (var element in newProducts) {
+        products.add(element);
+      }
       emit(LoadedOrderState(products));
     } catch (e) {
       print("Qo'shishda xatolik");

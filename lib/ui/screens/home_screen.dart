@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:minimal_online_shop/logic/cubits/cart/cart_cubit.dart';
 import 'package:minimal_online_shop/logic/cubits/product/product_cubit.dart';
 import 'package:minimal_online_shop/logic/cubits/product/product_stete.dart';
@@ -167,6 +168,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               context
                                   .read<CartCubit>()
                                   .addProductToCart(product);
+
+                              Fluttertoast.showToast(
+                                  msg: "Added to cart!",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
                             },
                             icon: const Icon(
                               Icons.shopping_cart,

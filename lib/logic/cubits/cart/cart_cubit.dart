@@ -12,6 +12,12 @@ class CartCubit extends Cubit<CartState> {
 
   List<Product> products = [];
 
+  Future<void> clear() async {
+    emit(LoadingCartState());
+    products.clear();
+    emit(LoadedCartState(products));
+  }
+
   Future<void> getProducts() async {
     try {
       emit(LoadingCartState());
@@ -23,7 +29,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> addProductToCart(Product product) async {
+  Future<void> addProductToCart(Product newProduct) async {
     try {
       if (state is LoadedCartState) {
         products = (state as LoadedCartState).products;
@@ -31,7 +37,7 @@ class CartCubit extends Cubit<CartState> {
 
       emit(LoadingCartState());
 
-      products.add(product);
+      products.add(newProduct);
       emit(LoadedCartState(products));
     } catch (e) {
       print("Qo'shishda xatolik");

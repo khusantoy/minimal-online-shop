@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:minimal_online_shop/data/models/product.dart';
 
 import '../../logic/cubits/all_cubits.dart';
@@ -136,6 +137,13 @@ class _CartScreenState extends State<CartScreen> {
                                       context
                                           .read<CartCubit>()
                                           .deleteProductFromCart(product.id);
+                                      Fluttertoast.showToast(
+                                          msg: "Order deleted successfully!",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 1,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
                                     },
                                     icon: const Icon(
                                       Icons.delete,
@@ -163,8 +171,16 @@ class _CartScreenState extends State<CartScreen> {
               backgroundColor: Colors.green,
               foregroundColor: Colors.white,
             ),
-            onPressed: () {
-              context.read<OrderCubit>().addProductToOrder(gproducts);
+            onPressed: () async {
+              await context.read<OrderCubit>().addProductToOrder(gproducts);
+              await context.read<CartCubit>().clear();
+              Fluttertoast.showToast(
+                  msg: "Order placed successfully!",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
             },
             child: const Text(
               "Order",
