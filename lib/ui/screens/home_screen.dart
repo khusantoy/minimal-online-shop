@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_online_shop/logic/cubits/cart/cart_cubit.dart';
 import 'package:minimal_online_shop/logic/cubits/product/product_cubit.dart';
 import 'package:minimal_online_shop/logic/cubits/product/product_stete.dart';
 
@@ -48,25 +49,25 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           print(state);
-          if (state is InitialState) {
+          if (state is InitialProductState) {
             return const Center(
               child: Text("Ma'lumot hali yuklanmadi"),
             );
           }
 
-          if (state is LoadingState) {
+          if (state is LoadingProductState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          if (state is ErrorState) {
+          if (state is ErrorProductState) {
             return Center(
               child: Text(state.message),
             );
           }
 
-          final products = (state as LoadedState).products;
+          final products = (state as LoadedProductState).products;
 
           return GridView.builder(
             physics: const BouncingScrollPhysics(),
@@ -162,7 +163,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<CartCubit>()
+                                  .addProductToCart(product);
+                            },
                             icon: const Icon(
                               Icons.shopping_cart,
                               color: Colors.white,
@@ -170,6 +175,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
+                      if (product.isFavourite)
+                        const Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.favorite_outlined,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                       AnimatedPositioned(
                         top: haveAction ? 35 : -40,
                         left: haveAction ? 35 : -40,

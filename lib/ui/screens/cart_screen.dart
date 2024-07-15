@@ -23,28 +23,33 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Cart"),
+        centerTitle: true,
+        backgroundColor: Colors.amber,
+      ),
       backgroundColor: Colors.white,
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          if (state is InitialState) {
+          if (state is InitialCartState) {
             return const Center(
               child: Text("Ma'lumot hali yuklanmadi"),
             );
           }
 
-          if (state is LoadingState) {
-            const Center(
+          if (state is LoadingCartState) {
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          if (state is ErrorState) {
+          if (state is ErrorCartState) {
             return Center(
               child: Text(state.message),
             );
           }
 
-          final products = (state as LoadedState).products;
+          final products = (state as LoadedCartState).products;
 
           return products.isEmpty
               ? const Center(

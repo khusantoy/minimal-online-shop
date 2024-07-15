@@ -3,13 +3,13 @@ import 'package:minimal_online_shop/logic/cubits/product/product_stete.dart';
 import 'package:minimal_online_shop/data/models/product.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  ProductCubit() : super(InitialState());
+  ProductCubit() : super(InitialProductState());
 
   List<Product> products = [];
 
   Future<void> getProducts() async {
     try {
-      emit(LoadingState());
+      emit(LoadingProductState());
       await Future.delayed(const Duration(seconds: 2));
 
       List<Product> products = [
@@ -22,41 +22,41 @@ class ProductCubit extends Cubit<ProductState> {
       ];
 
       // throw("Xatolik");
-      emit(LoadedState(products));
+      emit(LoadedProductState(products));
     } catch (e) {
       print("Xatolik sodir bo'ldi");
-      emit(ErrorState("Mahsulotlar olinmadi"));
+      emit(ErrorProductState("Mahsulotlar olinmadi"));
     }
   }
 
   Future<void> addProduct(
       String id, String title, String imageUrl, bool isFavourite) async {
     try {
-      if (state is LoadedState) {
-        products = (state as LoadedState).products;
+      if (state is LoadedProductState) {
+        products = (state as LoadedProductState).products;
       }
 
-      emit(LoadingState());
+      emit(LoadingProductState());
       await Future.delayed(const Duration(seconds: 2));
       // await Future.delayed(const Duration(seconds: 2))
 
       products.add(Product(
           id: id, title: title, imageUrl: imageUrl, isFavourite: isFavourite));
 
-      emit(LoadedState(products));
+      emit(LoadedProductState(products));
     } catch (e) {
       print("Qo'shishda xatolik");
-      emit(ErrorState("Qo'shishda xatolik"));
+      emit(ErrorProductState("Qo'shishda xatolik"));
     }
   }
 
   Future<void> editProduct(String id, String title, String imageUrl) async {
     try {
-      if (state is LoadedState) {
-        products = (state as LoadedState).products;
+      if (state is LoadedProductState) {
+        products = (state as LoadedProductState).products;
       }
 
-      emit(LoadingState());
+      emit(LoadingProductState());
       await Future.delayed(const Duration(seconds: 2));
       // await Future.delayed(const Duration(seconds: 2))
 
@@ -67,20 +67,20 @@ class ProductCubit extends Cubit<ProductState> {
         }
       }
 
-      emit(LoadedState(products));
+      emit(LoadedProductState(products));
     } catch (e) {
       print("O'zgartirishda xatolik");
-      emit(ErrorState("O'zgartirishda xatolik xatolik"));
+      emit(ErrorProductState("O'zgartirishda xatolik xatolik"));
     }
   }
 
   Future<void> makeFavourite(String id) async {
     try {
-      if (state is LoadedState) {
-        products = (state as LoadedState).products;
+      if (state is LoadedProductState) {
+        products = (state as LoadedProductState).products;
       }
 
-      emit(LoadingState());
+      emit(LoadingProductState());
       await Future.delayed(const Duration(seconds: 2));
       // await Future.delayed(const Duration(seconds: 2))
 
@@ -90,10 +90,10 @@ class ProductCubit extends Cubit<ProductState> {
         }
       }
 
-      emit(LoadedState(products));
+      emit(LoadedProductState(products));
     } catch (e) {
       print("O'zgartirishda xatolik");
-      emit(ErrorState("O'zgartirishda xatolik xatolik"));
+      emit(ErrorProductState("O'zgartirishda xatolik xatolik"));
     }
   }
 
@@ -101,21 +101,21 @@ class ProductCubit extends Cubit<ProductState> {
     String id,
   ) async {
     try {
-      if (state is LoadedState) {
-        products = (state as LoadedState).products;
+      if (state is LoadedProductState) {
+        products = (state as LoadedProductState).products;
       }
 
-      emit(LoadingState());
+      emit(LoadingProductState());
       await Future.delayed(const Duration(seconds: 2));
       // await Future.delayed(const Duration(seconds: 2))
 
       // id qiymati 1 ga teng bo'lgan mahsulotni o'chirib tashlash
       products.removeWhere((product) => product.id == id);
 
-      emit(LoadedState(products));
+      emit(LoadedProductState(products));
     } catch (e) {
       print("O'chirishda xatolik xatolik");
-      emit(ErrorState("O'chirishda xatolik"));
+      emit(ErrorProductState("O'chirishda xatolik"));
     }
   }
 }

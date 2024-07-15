@@ -7,18 +7,18 @@ part of 'cart_cubit.dart';
 
 sealed class CartState {}
 
-final class InitialState extends CartState {}
+final class InitialCartState extends CartState {}
 
-final class LoadingState extends CartState {}
+final class LoadingCartState extends CartState {}
 
-final class LoadedState extends CartState {
+final class LoadedCartState extends CartState {
   List<Product> products = [];
 
-  LoadedState(this.products);
+  LoadedCartState(this.products);
 }
 
-final class ErrorState extends CartState {
+final class ErrorCartState extends CartState {
   String message;
 
-  ErrorState(this.message);
+  ErrorCartState(this.message);
 }
