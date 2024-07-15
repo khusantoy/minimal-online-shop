@@ -13,6 +13,9 @@ void main() {
         }),
         BlocProvider(create: (context) {
           return ProductCubit();
+        }),
+        BlocProvider(create: (context) {
+          return OrderCubit();
         })
       ],
       child: const MainApp(),
