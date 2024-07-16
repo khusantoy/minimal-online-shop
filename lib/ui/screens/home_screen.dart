@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:minimal_online_shop/logic/cubits/cart/cart_cubit.dart';
 import 'package:minimal_online_shop/logic/cubits/product/product_cubit.dart';
 import 'package:minimal_online_shop/logic/cubits/product/product_stete.dart';
+import 'package:minimal_online_shop/logic/cubits/theme_mode/theme_mode_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,13 +39,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Market"),
         centerTitle: true,
         backgroundColor: Colors.amber,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.light_mode))
+          IconButton(
+              onPressed: () {
+                context.read<ThemeModeCubit>().toggleTheme();
+              },
+              icon: const Icon(Icons.light_mode))
         ],
       ),
       body: BlocBuilder<ProductCubit, ProductState>(

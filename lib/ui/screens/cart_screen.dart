@@ -33,7 +33,6 @@ class _CartScreenState extends State<CartScreen> {
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
-      backgroundColor: Colors.white,
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           if (state is InitialCartState) {

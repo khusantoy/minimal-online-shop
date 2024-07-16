@@ -28,7 +28,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
-      backgroundColor: Colors.white,
       body: BlocBuilder<OrderCubit, OrderState>(
         builder: (context, state) {
           if (state is InitialOrderState) {
